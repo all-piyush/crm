@@ -8,7 +8,7 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 const Inquiries = (props) => {
   const url = import.meta.env.VITE_APP_URL;
   const navigate = useNavigate();
-  const { inquiries, setinquiries } = useOutletContext();
+  const { inquiries, setinquiries } = props;
   async function Delete(id) {
     const response = await fetch(`${url}/api/delete-inquiry/${id}`, {
       method: "DELETE",

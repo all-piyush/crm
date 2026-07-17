@@ -4,9 +4,30 @@ import Logo from './assets/logo22.png'
 import { Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import Admin from './Components/Admin/Admin';import Home from './Components/Home';
 import Inquiries from './Components/Admin/Inquiries';
+import { useEffect, useState } from 'react';
 
 function App() {
-  
+  const url = import.meta.env.VITE_APP_URL;
+  const [inquiries,setinquiries]=useState([]);
+    async function fetchinquiries(){
+      try{
+        const response = await fetch(`${url}/api/fetch-inquiries`, {
+          method: "GET",
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+        })
+        const result = await response.json();
+        if(result.success){
+          setinquiries(result.inquiries);
+        }
+      }catch(error){
+        console.log(error);
+      }
+    }
+    
+    useEffect(()=>{
+      fetchinquiries();
+    },[])
   const location = useLocation();
   const adminroute = location.pathname.startsWith('/admin');
   return (
@@ -22,10 +43,10 @@ function App() {
             </div>
       }
       <Routes>
-        <Route path='/' element={<Home/>}> </Route>
+        <Route path='/' element={<Home  inquiries={inquiries} setinquiries={setinquiries}/>}> </Route>
         <Route path='/admin' element={<Admin/>}>
-        <Route index element={<Navigate to="inquiries" replace />} />
-        <Route path="inquiries" element={<Inquiries />} />
+        <Route index element={<Navigate to="inquiries" replace/>} />
+        <Route path="inquiries" element={<Inquiries inquiries={inquiries} setinquiries={setinquiries}/>} />
         </Route>
       </Routes>
     </div>

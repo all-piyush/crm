@@ -25,7 +25,7 @@ import '../App.css'
 import Hero from '../Hero';
 import { NavLink, Route, Routes } from 'react-router-dom';
 
-const Home = () => {
+const Home = (props) => {
     const url = import.meta.env.VITE_APP_URL;
   const [selectedfaq, setselectedfaq] = useState(null);
   const [formdata, setformdata] = useState({name: "",company: "",email: "",country: "",industry: "",companysize: "",phone: "",message: "",budget:""});
@@ -33,7 +33,7 @@ const Home = () => {
     const { name, value } = e.target;
     setformdata((prev) => ({ ...prev, [name]: value, }));
   };
-
+  const{ inquiries,setinquiries}=props;
 const handleform = async (e) => {
   e.preventDefault();
   console.log(formdata);
@@ -50,6 +50,9 @@ const handleform = async (e) => {
     const result = await response.json();
 
     if (result.success) {
+      const updatedInquiries = [...inquiries];
+      updatedInquiries.push(result.inquiry);
+      setinquiries(updatedInquiries);
       setformdata({name: "",company: "",email: "",country: "",industry: "",companysize: "",phone: "",message: "",budget:""});
     } 
   } catch (error) {
