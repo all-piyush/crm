@@ -1,0 +1,30 @@
+*{
+  box-sizing: border-box;
+  
+}
+@media(max-width:1024px){
+  .collections{
+    padding-left: 0;
+  }
+  .filter-button{
+    display: block;
+  }
+   .show{
+    position: fixed;
+    top:0;
+    width: 16rem;
+    height: 100%;
+    background: white;
+    padding: 1rem;
+    transition: left 0.3s ease;
+    z-index: 110;   
+    }
+    .admin-sidebar{
+      position: fixed;
+    top:0;
+    left:0
+    }
+     .close{
+        display: none;
+    }
+}
