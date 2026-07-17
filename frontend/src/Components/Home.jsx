@@ -22,7 +22,6 @@ import hero from '../assets/hero3-Photoroom.png'
 import "swiper/css";
 import 'swiper/css/autoplay';
 import '../App.css'
-import Hero from '../Hero';
 import { NavLink, Route, Routes } from 'react-router-dom';
 
 const Home = () => {
